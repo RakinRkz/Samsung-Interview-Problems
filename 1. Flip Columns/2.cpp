@@ -15,6 +15,7 @@ int main() {
     int alreadyEqual = 0;
     int list[n];
     memset(list, 0, n*sizeof(int));
+    //counting rows that are already full of 1's
     for(i=0;i<n;i++) {
         int flag = 1;
         if(matrix[i][0] == 0) {
@@ -31,7 +32,7 @@ int main() {
             alreadyEqual++;
         }
     }
-
+    //clustering | counting for each row, how many other rows are same as it.
     for(i=0;i<n;i++) {
         if(list[i] == -1)
             continue;
@@ -60,6 +61,10 @@ int main() {
                 ones++;
         }
         zero = m - ones;
+        // for this row, we counted how many 0's and 1's it has.
+        // we check if cluster size of this row is greater than the number of rows full of 1's
+        // and allowed moves left after flipping the 0's of this row cluster is even(because 
+        // odd number of actions left will cause chaos)
         if(list[i]+1 > alreadyEqual && (maxMove-zero)%2==0)
             alreadyEqual = list[i]+1;
     }
